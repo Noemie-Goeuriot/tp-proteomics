@@ -165,34 +165,42 @@ df = pandas.read_csv()
 
 Quel est le type de l'objet `df`?
 ```
-
+df est un dataframe pandas
 ```
 
 ##### Descriptions d'une table de données
 Que permettent les méthodes suivantes?
 ###### df.shape
 ```
+Permet de connaitre les dimensions du dataframe df (nombre de lignes*nombre de colonnes)
 ```
 ###### df.head()
 ```
+Permet d'afficher les 5 premières lignes du dataframe df
 ```
 ###### df.tail()
 ```
+Permet d'afficher les 5 dernières lignes du dataframe df
 ```
 ###### df.columns
 ```
+Permet de récupérer les noms des colonnes du dataframe
 ```
 ###### df.dtypes
 ```
+Permet d'avoir accès au type des éléments constituant chaque colonne
 ```
 ###### df.info
 ```
+Permet de visualiser un résumé du dataframe
 ```
 ###### df.describe()
 ```
+Permet de générer des statistiques descriptives sur le dataframe (par colonne)
 ```
 ###### df.dropna()
 ```
+Permet d'éliminer les lignes ou les colonnes (suivant argument 0 ou 1) qui contiennent au moins une ou que des valeurs Na
 ```
 
 ##### Accès aux éléments d'une table de données
@@ -201,7 +209,7 @@ Que permettent les méthodes suivantes?
 values = df[['Description', 'Gene Symbol']]
 ```
 
-Quel est le type de `values` ?
+Quel est le type de `values` ? Dataframe pandas
 
 Verifiez si certaines méthodes de `DataFrame` lui sont applicables.
 Ce type supporte l'accès par indice et les slice `[a:b]`
@@ -212,17 +220,17 @@ On peut accéder aux valeurs du DataFrame via des indices ou plages d'indice. La
 Il y a différentes manières de le faire, l'utilisation de `.iloc[slice_ligne,slice_colonne]` constitue une des solutions les plus simples. N'oublions pas que shape permet d'obtenir les dimensions (lignes et colonnes) du DataFrame.
 ###### Acceder aux cinq premières lignes de toutes les colonnes
 ```python
-
+df.iloc[0:5,]
 ```
 
 ###### Acceder à toutes les lignes de la dernière colonne
 ```python
-
+df.iloc[:,-1]
 ```
 
 ###### Acceder aux cinq premières lignes des colonnes 0, 2 et 3
 ```python
-
+df.iloc[0:5,[0,2,3]]
 ```
 
 ##### Conversion de type
@@ -272,7 +280,13 @@ df.loc[ df['Gene Symbol'].isin(['fadR', 'arcA'] ) ]
 
 ##### 3. A partir de cette échantillon de ratio d'abondance,  estimez la moyenne <img src="https://render.githubusercontent.com/render/math?math=\mu"> et l'ecart-type <img src="https://render.githubusercontent.com/render/math?math=\sigma"> d'une loi normale.
 ```
+mu = np.mean(df["Log2 Corrected Abundance Ratio"])
+sigma = np.std(df["Log2 Corrected Abundance Ratio"])
+print("µ = ", mu)
+print("σ = ", sigma)
 
+µ =  -0.6386262156443276
+σ =  0.47062451611275236
 
 ```
 
@@ -288,6 +302,7 @@ dx = hist[1][1] - hist[1][0] # Get single value bar height
 scale = len(_)*dx # scale accordingly
 ax.plot(x, norm.pdf(x, mu, sigma)*scale) # compute theoritical PDF and draw it
 ```
+![image](https://user-images.githubusercontent.com/99486510/195792243-74aec756-480d-4523-9f61-71fb05c77a82.png)
 
 ![Histogramme à inserez ici](histogram_log2FC.png "Title")
 
@@ -307,6 +322,9 @@ Sont condidérées comme surabondantes les proteines remplissant ces deux critè
 
 * <img src="https://render.githubusercontent.com/render/math?math=\text{Log}_2(\text{abundance ratio})\gt\mu%2B\sigma">  
 * <img src="https://render.githubusercontent.com/render/math?math=\text{p-value}<0.001">
+
+![image](https://user-images.githubusercontent.com/99486510/195799762-8717c4c7-0978-4232-9927-bd6ac855123f.png)
+
 
 ![Volcano plot + quadrant à inserez ici](histogram_log2FC.png "Title")
 
@@ -423,9 +441,7 @@ Valider le mapping produit par STRING en clickant sur 'Continue'.
 Combien d'interactions contient ce réseau ?
 
 ```
-
-
-
+19
 
 ```
 
@@ -439,9 +455,13 @@ Combien d'interactions sont supportées par chaque source ('Textmining', 'Experi
 
 Hint: l'onglet Analysis, donne accès aux nombre des interactions du réseau.
 ```
-
-
-
+Text-mining = 16
+Experiments = 4
+Databases = 2
+Co-expression = 1
+Neighborhood = 0
+Gene Fusion = 0
+Co-occurrence = 2
 
 ```
 
@@ -451,7 +471,7 @@ Consulter la rubrique 'Network Stats' dans l'onglet Settings.
 
 Que peut-on en conclure sur les interactions de ce petit ensemble de protéines ?
 ```
-
+Les 14 protéines surexprimées ne sont pas issues d'un échantillon alétaoire mais présentent des interactions fonctionnelles
 
 
 
@@ -462,7 +482,8 @@ ajouter les interacteurs de la première et de la deuxième couche.
 
 Que pouvez-vous en déduire sur les mécanismes activés par la présente de tétracycline ?
 ```
-
+Fonction surexprimée, en lien avec la plupart des protéines surexprimées = celle des porines = transport transmembranaire + on a réseau d'interactions complet
++ il y a d'autres protéines, appartenant à d'autres voies fonctionnelles (notamment la traduction), qui ont également été surexprimées, mais il ne s'agit pas du réseau entier
 
 
 
@@ -473,7 +494,7 @@ Consulter l'analyse de sur-représention des termes GO présents dans l'onglet '
 Est-ce cohérent avec votre analyse précédente ?
 
 ```
-
+Avec l'analyse d'enrichissement, on retrouve également la fonction des porines comme fonction principale
 
 
 
