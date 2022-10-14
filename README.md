@@ -538,3 +538,4 @@ Les positions des noeuds sont paramétrables au travers de l'objet [layout](http
 * colorier les protéines appartenant à des classes GO communes.
 * Faire du diamètre des noeuds une fonction du nombre de partenaires protéiques.
 
+![image](https://user-images.githubusercontent.com/99486510/195819571-10df266c-1e0f-459c-b67d-894d1e11e9d8.png)
